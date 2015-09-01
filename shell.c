@@ -114,27 +114,18 @@ process* create_process(char* inputString)
   return NULL;
 }
 
+int count(char *p[]){
+    int count_tokd = 0;
+    for(int i=0; i<MAXTOKS; i++){
+       if(p[i] == NULL)
+        {
+         break;
+       }
 
-/*int  void main(int argc ,char *argv[]){
-pid_t childpid;
-int status;
-if ((childpid=fork())==-1){
-perror("Error in the fork");
-exit(1);
-}else if (childpid ==0){
-//if (exec1("/usr/bin/wc","wc","shell.c",NULL)<0){
-
-if (execvp(argv[1],&argv[1])<0{
-perror("Exec of wc failed");
-exit(1);
+  }
+   return (count_tokd=count +1);
 }
-}else while (childpid != wait (&status)){
-if ((childpid == -1 ) && (errno != EINTR))
-break;
-//peerror("A signal occured before the child exited");
-exit(0);
-//return 0;
-}*/
+
 
 
 
@@ -162,7 +153,32 @@ getcwd( workdir, 255 );
     if(fundex >= 0) cmd_table[fundex].fun(&t[1]);
     else {
       //fprintf(stdout, "This shell only supports built-ins. Replace this to run programs as commands.\n");
+tok_t* some=getToks(getenv("PATH"));
+//char **thepaths=some;
+//char *some=getenv("PATH");
+           if(count(t) > 0){
+         if((access(t[0], F_OK)) == -1){
+           int thecount = count(some);
+           char c[255] = "";
+           int thepath = -1;
 
+         for(int i=0; i<thecount; i++){
+           char c2[255] = "";
+
+           strcat(c2, some[i]);
+           strcat(c2, "/");
+           strcat(c2, t[0]);
+
+          if((access(c2, F_OK)) != -1){
+              strcat(c, c2);
+              thepath = 1;
+              break;
+           }
+          }
+          if(thepath> 0){
+             t[0] = c;
+            }
+           }
 pid_t childpid;
 int status;
 if ((childpid=fork())==-1){
@@ -170,9 +186,10 @@ perror("Error in the fork");
 exit(0);
 }else if(childpid==0){
 execv(*t,t);
-char *some=getenv("PATH");
 
-perror("success");
+}
+           
+//perror("success");
 }    
 }
 lineNum++;
